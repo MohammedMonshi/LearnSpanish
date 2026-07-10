@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#FF6B35">
+    <meta name="description" content="LearnSpanish - A cognitive engineering-based PWA for learning Spanish">
+    <title>LearnSpanish - Learn Spanish with Cognitive Engineering</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%23FF6B35' width='192' height='192'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='100' fill='white' font-weight='bold'>ES</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%23FF6B35' width='192' height='192'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='100' fill='white' font-weight='bold'>ES</text></svg>">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Home Screen -->
+        <div id="homeScreen" class="screen active">
+            <header class="header-home">
+                <h1 class="app-title">LearnSpanish</h1>
+                <p class="app-subtitle">Master Spanish Through Cognitive Science</p>
+            </header>
+            
+            <div class="container">
+                <section class="user-progress">
+                    <div class="streak-card">
+                        <div class="streak-icon">🔥</div>
+                        <div class="streak-info">
+                            <div class="streak-number" id="streakCount">0</div>
+                            <div class="streak-label">Day Streak</div>
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stat">
+                            <span class="stat-label">Total XP</span>
+                            <span class="stat-value" id="totalXP">0</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="level-selection">
+                    <h2>Select Your Level</h2>
+                    <div class="levels-grid">
+                        <button class="level-btn" data-level="A1">
+                            <span class="level-badge">A1</span>
+                            <span class="level-name">Beginner</span>
+                            <span class="level-progress" id="progress-A1"></span>
+                        </button>
+                        <button class="level-btn" data-level="A2">
+                            <span class="level-badge">A2</span>
+                            <span class="level-name">Elementary</span>
+                            <span class="level-progress" id="progress-A2"></span>
+                        </button>
+                        <button class="level-btn" data-level="B1">
+                            <span class="level-badge">B1</span>
+                            <span class="level-name">Intermediate</span>
+                            <span class="level-progress" id="progress-B1"></span>
+                        </button>
+                        <button class="level-btn" data-level="B2">
+                            <span class="level-badge">B2</span>
+                            <span class="level-name">Upper-Int</span>
+                            <span class="level-progress" id="progress-B2"></span>
+                        </button>
+                        <button class="level-btn" data-level="C1">
+                            <span class="level-badge">C1</span>
+                            <span class="level-name">Advanced</span>
+                            <span class="level-progress" id="progress-C1"></span>
+                        </button>
+                        <button class="level-btn" data-level="C2">
+                            <span class="level-badge">C2</span>
+                            <span class="level-name">Mastery</span>
+                            <span class="level-progress" id="progress-C2"></span>
+                        </button>
+                    </div>
+                </section>
+
+                <section class="quick-stats">
+                    <h3>Your Learning Stats</h3>
+                    <div class="stats-container">
+                        <div class="stat-box">
+                            <div class="stat-icon">📚</div>
+                            <div class="stat-count" id="wordsLearned">0</div>
+                            <div class="stat-name">Words Learned</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-icon">✅</div>
+                            <div class="stat-count" id="lessonsCompleted">0</div>
+                            <div class="stat-name">Lessons Done</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-icon">🎯</div>
+                            <div class="stat-count" id="accuracy">0%</div>
+                            <div class="stat-name">Accuracy</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <footer class="app-footer">
+                <button id="settingsBtn" class="icon-btn">⚙️</button>
+            </footer>
+        </div>
+
+        <!-- Learning Screen -->
+        <div id="learningScreen" class="screen">
+            <header class="learning-header">
+                <button id="backBtn" class="back-btn">← Back</button>
+                <div class="level-info">
+                    <span id="currentLevel"></span>
+                    <span id="lessonProgress"></span>
+                </div>
+                <span id="xpGain" class="xp-gain"></span>
+            </header>
+
+            <div class="container learning-container">
+                <!-- Lesson Card -->
+                <div id="lessonCard" class="lesson-card">
+                    <div class="cognitive-principle" id="cognitivePrinciple"></div>
+                    <div class="lesson-content">
+                        <div id="contentArea"></div>
+                    </div>
+                </div>
+
+                <!-- Interactive Exercise Area -->
+                <div id="exerciseArea" class="exercise-area"></div>
+
+                <!-- Navigation -->
+                <div class="lesson-nav">
+                    <button id="prevBtn" class="nav-btn" disabled>← Previous</button>
+                    <button id="nextBtn" class="nav-btn">Next →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Screen -->
+        <div id="settingsScreen" class="screen">
+            <header class="settings-header">
+                <h2>Settings</h2>
+                <button id="closeSettingsBtn" class="close-btn">✕</button>
+            </header>
+
+            <div class="container settings-container">
+                <section class="setting-section">
+                    <h3>Learning Preferences</h3>
+                    <label class="setting-item">
+                        <input type="checkbox" id="soundToggle" checked>
+                        <span>Sound Effects</span>
+                    </label>
+                    <label class="setting-item">
+                        <input type="checkbox" id="spellCheckToggle" checked>
+                        <span>Spell Check</span>
+                    </label>
+                    <label class="setting-item">
+                        <input type="checkbox" id="timerToggle" checked>
+                        <span>Timed Exercises</span>
+                    </label>
+                </section>
+
+                <section class="setting-section">
+                    <h3>Cognitive Techniques</h3>
+                    <label class="setting-item">
+                        <input type="checkbox" id="spacedRepetitionToggle" checked>
+                        <span>Spaced Repetition</span>
+                    </label>
+                    <label class="setting-item">
+                        <input type="checkbox" id="interleaving" checked>
+                        <span>Interleaved Learning</span>
+                    </label>
+                    <label class="setting-item">
+                        <input type="checkbox" id="elaborationToggle" checked>
+                        <span>Elaboration Questions</span>
+                    </label>
+                </section>
+
+                <section class="setting-section">
+                    <h3>Data Management</h3>
+                    <button id="exportDataBtn" class="btn btn-secondary">Export Progress</button>
+                    <button id="clearDataBtn" class="btn btn-danger">Clear All Data</button>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast" class="toast"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
